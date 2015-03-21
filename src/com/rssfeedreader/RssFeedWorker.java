@@ -15,8 +15,7 @@ public class RssFeedWorker extends AsyncTask<MainActivity, Void, MainActivity> {
 			result = reader.readRssFromUrl(params[0].getFinalUrl());
 			params[0].setObjects(result);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			params[0].setObjects(null);
 		}
 		return params[0];
 	}

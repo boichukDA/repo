@@ -12,11 +12,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.rssfeedreader.rss.RssObject;
 import com.rssfeedreader.rss.RssObjects;
 
 public class MainActivity extends Activity {
 
-	private String finalUrl = "http://news.yandex.ru/hardware.rss";
+	private String finalUrl; // пример запроса
+								// "http://news.yandex.ru/hardware.rss";
 	private RssObjects objects;
 
 	@Override
@@ -62,6 +64,9 @@ public class MainActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
+				if (objects == null)
+					return;
+
 				Intent intent = new Intent(getBaseContext(),
 						DetailActivity.class);
 				intent.putExtra("rss_object", objects.get(arg2));
@@ -77,10 +82,13 @@ public class MainActivity extends Activity {
 	}
 
 	public void updateListWithData() {
-		if (objects == null)
-			return;
-		CompositeListAdapter compositeListAdapter = new CompositeListAdapter(
+		CompositeListAdapter compositeListAdapter = null;
+		if (objects != null)
+		 compositeListAdapter = new CompositeListAdapter(
 				this, objects.filteredObjectsToArray());
+		else
+			 compositeListAdapter = new CompositeListAdapter(
+						this,new RssObject[]{});
 		ListView lv = (ListView) findViewById(R.id.listView);
 		lv.setAdapter(compositeListAdapter);
 	}

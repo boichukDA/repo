@@ -39,7 +39,6 @@ public class RssReader {
 			System.out.println(list);
 			return list;
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new Exception("Ошибка парсинга", e);
 		}
 	}
